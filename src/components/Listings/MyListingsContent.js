@@ -28,7 +28,7 @@ const MyListingsContent = () => {
   const fetchListings = async () => {
     try {
       const token = Cookies.get('token');
-      const response = await fetch('http://localhost:5000/api/jobs/my-jobs', {
+      const response = await fetch('https://auriter-back.onrender.com/api/jobs/my-jobs', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -48,7 +48,7 @@ const MyListingsContent = () => {
 
     try {
       const token = Cookies.get('token');
-      const response = await fetch(`http://localhost:5000/api/jobs/${deleteJobId}`, {
+      const response = await fetch(`https://auriter-back.onrender.com/api/jobs/${deleteJobId}`, {
         method: 'DELETE',
         headers: {
           'Authorization': `Bearer ${token}`

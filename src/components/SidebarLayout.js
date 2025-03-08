@@ -39,7 +39,7 @@ const SidebarLayout = ({ onLogout }) => {
 
   const checkUserRole = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/profile/role', {
+      const response = await fetch('https://auriter-back.onrender.com/api/profile/role', {
         headers: {
           'Authorization': `Bearer ${Cookies.get('token')}`
         }
@@ -53,7 +53,7 @@ const SidebarLayout = ({ onLogout }) => {
 
   const checkProfileStatus = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/profile/status', {
+      const response = await fetch('https://auriter-back.onrender.com/api/profile/status', {
         headers: {
           'Authorization': `Bearer ${Cookies.get('token')}`
         }

@@ -168,7 +168,7 @@ const VoiceInteraction = () => {
       setLoading(true);
       setError(null);
 
-      const chatResponse = await fetch('http://localhost:5000/api/chat/message', {
+      const chatResponse = await fetch('https://auriter-back.onrender.com/api/chat/message', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

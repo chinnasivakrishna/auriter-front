@@ -126,7 +126,7 @@ const InterviewRoom = ({ roomDetails, language, difficulty, onEnd }) => {
   const generateQuestions = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/interview/generate-questions', {
+      const response = await fetch('https://auriter-back.onrender.com/api/interview/generate-questions', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -165,7 +165,7 @@ const InterviewRoom = ({ roomDetails, language, difficulty, onEnd }) => {
   const analyzeAnswers = async () => {
     setIsLoading(true);
     try {
-      const response = await fetch('http://localhost:5000/api/interview/analyze-answers', {
+      const response = await fetch('https://auriter-back.onrender.com/api/interview/analyze-answers', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

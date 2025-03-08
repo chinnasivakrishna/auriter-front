@@ -44,7 +44,7 @@ const ChatContent = () => {
 
   const fetchChatHistory = async () => {
     try {
-      const response = await fetch(`http://localhost:5000/api/chat/history/${userId}`, {
+      const response = await fetch(`https://auriter-back.onrender.com/api/chat/history/${userId}`, {
         credentials: 'include'
       });
       
@@ -68,7 +68,7 @@ const ChatContent = () => {
       setIsPlaying(false);
 
       transcriptWsRef.current = new WebSocket(
-        'ws://localhost:5000/ws/transcribe?language=en&model=nova-2'
+        'ws://auriter-back.onrender.com/ws/transcribe?language=en&model=nova-2'
       );
 
       await new Promise((resolve, reject) => {
@@ -123,7 +123,7 @@ const ChatContent = () => {
       
       await audioStreamRef.current.resume();
 
-      const ws = new WebSocket('ws://localhost:5000/ws/speech');
+      const ws = new WebSocket('ws://auriter-back.onrender.com/ws/speech');
       
       ws.onopen = () => {
         const request = {
@@ -256,7 +256,7 @@ const ChatContent = () => {
     setInput('');
 
     try {
-      const response = await fetch('http://localhost:5000/api/chat/message', {
+      const response = await fetch('https://auriter-back.onrender.com/api/chat/message', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'

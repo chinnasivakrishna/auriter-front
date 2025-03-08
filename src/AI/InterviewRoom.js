@@ -93,7 +93,7 @@ useEffect(() => {
     const fetchInterviewDetails = async () => {
       try {
         console.log('Fetching interview details...');
-        const response = await axios.get(`http://localhost:5000/api/interview/details/${roomId}`);
+        const response = await axios.get(`https://auriter-back.onrender.com/api/interview/details/${roomId}`);
         const { date, time, jobTitle, document } = response.data;
   
         const interviewDateTime = new Date(`${date}T${time}`);
@@ -257,7 +257,7 @@ useEffect(() => {
     console.log('Setting up WebSocket connections...');
     
     // WebSocket for transcription
-    webSocketRef.current = new WebSocket(`ws://localhost:5000/ws/transcribe?language=en`);
+    webSocketRef.current = new WebSocket(`ws://auriter-back.onrender.com/ws/transcribe?language=en`);
     
     webSocketRef.current.onopen = () => {
       console.log('Transcription WebSocket connected');
@@ -281,7 +281,7 @@ useEffect(() => {
     };
   
     // WebSocket for speech synthesis
-    speechWebSocketRef.current = new WebSocket('ws://localhost:5000/ws/speech');
+    speechWebSocketRef.current = new WebSocket('ws://auriter-back.onrender.com/ws/speech');
     
     speechWebSocketRef.current.onopen = () => {
       console.log('Speech WebSocket connected');
@@ -325,7 +325,7 @@ const startInterview = async () => {
   const fetchQuestions = async () => {
     try {
       console.log('Fetching interview questions...');
-      const response = await axios.get(`http://localhost:5000/api/interview/questions/${roomId}`);
+      const response = await axios.get(`https://auriter-back.onrender.com/api/interview/questions/${roomId}`);
       setQuestions(response.data.questions);
       
       setResponses(response.data.questions.map(() => ''));
@@ -473,7 +473,7 @@ const startInterview = async () => {
     try {
       console.log('Submitting all responses...');
       const submitPromises = questions.map((question, index) => {
-        return axios.post(`http://localhost:5000/api/interview/response/${roomId}`, {
+        return axios.post(`https://auriter-back.onrender.com/api/interview/response/${roomId}`, {
           question,
           response: finalResponses[index]
         });
@@ -490,7 +490,7 @@ const startInterview = async () => {
   const analyzeResponses = async (finalResponses) => {
     try {
       console.log('Analyzing responses...');
-      const response = await axios.post('http://localhost:5000/api/interview/analyze', {
+      const response = await axios.post('https://auriter-back.onrender.com/api/interview/analyze', {
         roomId,
         questions,
         answers: finalResponses

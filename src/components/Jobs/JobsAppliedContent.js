@@ -32,7 +32,7 @@ const JobsAppliedContent = () => {
 
   const fetchApplications = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/jobs-applied/my-applications', {
+      const response = await fetch('https://auriter-back.onrender.com/api/jobs-applied/my-applications', {
         headers: {
           'Authorization': `Bearer ${Cookies.get('token')}`
         }

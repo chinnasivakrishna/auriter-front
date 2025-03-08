@@ -26,7 +26,7 @@ const AuthPage = ({ onAuthSuccess }) => {
     const endpoint = isLogin ? '/api/auth/login' : '/api/auth/register';
     
     try {
-      const response = await fetch(`http://localhost:5000${endpoint}`, {
+      const response = await fetch(`https://auriter-back.onrender.com${endpoint}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -67,7 +67,7 @@ const AuthPage = ({ onAuthSuccess }) => {
         return;
       }
 
-      const response = await fetch('http://localhost:5000/api/auth/set-role', {
+      const response = await fetch('https://auriter-back.onrender.com/api/auth/set-role', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -91,7 +91,7 @@ const AuthPage = ({ onAuthSuccess }) => {
   const handleCompanySubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await fetch('http://localhost:5000/api/auth/set-role', {
+      const response = await fetch('https://auriter-back.onrender.com/api/auth/set-role', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -116,7 +116,7 @@ const AuthPage = ({ onAuthSuccess }) => {
   };
 
   const handleGoogleLogin = () => {
-    window.location.href = 'http://localhost:5000/api/auth/google';
+    window.location.href = 'https://auriter-back.onrender.com/api/auth/google';
   };
 
   if (showRoleSelection) {

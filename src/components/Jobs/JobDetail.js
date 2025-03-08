@@ -22,7 +22,7 @@ const JobDetail = () => {
   useEffect(() => {
     const fetchJobDetail = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/jobs/${jobId}`, {
+        const response = await fetch(`https://auriter-back.onrender.com/api/jobs/${jobId}`, {
           headers: {
             'Authorization': `Bearer ${Cookies.get('token')}`
           }
@@ -51,7 +51,7 @@ const JobDetail = () => {
       formData.append('coverLetter', applicationData.coverLetter);
       formData.append('additionalNotes', applicationData.additionalNotes);
 
-      const response = await fetch(`http://localhost:5000/api/applications/${jobId}`, {
+      const response = await fetch(`https://auriter-back.onrender.com/api/applications/${jobId}`, {
         method: 'POST',
         headers: {
           'Authorization': `Bearer ${Cookies.get('token')}`

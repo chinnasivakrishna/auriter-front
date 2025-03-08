@@ -52,7 +52,7 @@ const VoiceInteraction = () => {
 
   const fetchVoiceHistory = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/chat/voice-history/user123', {
+      const response = await fetch('https://auriter-back.onrender.com/api/chat/voice-history/user123', {
         credentials: 'include'
       });
       if (!response.ok) throw new Error('Failed to fetch voice history');
@@ -84,7 +84,7 @@ const VoiceInteraction = () => {
       
       await audioStreamRef.current.resume();
 
-      const ws = new WebSocket('ws://localhost:5000/ws/speech');
+      const ws = new WebSocket('ws://auriter-back.onrender.com/ws/speech');
       
       ws.onopen = () => {
         const request = {
@@ -147,7 +147,7 @@ const VoiceInteraction = () => {
       setLoading(true);
       setError(null);
 
-      const chatResponse = await fetch('http://localhost:5000/api/chat/voice-message', {
+      const chatResponse = await fetch('https://auriter-back.onrender.com/api/chat/voice-message', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         credentials: 'include',
@@ -187,7 +187,7 @@ const VoiceInteraction = () => {
       setIsSpeaking(false);
 
       transcriptWsRef.current = new WebSocket(
-        `ws://localhost:5000/ws/transcribe?language=${language}&model=nova-2`
+        `ws://auriter-back.onrender.com/ws/transcribe?language=${language}&model=nova-2`
       );
 
       await new Promise((resolve, reject) => {

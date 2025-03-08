@@ -42,7 +42,7 @@ const AiVideo = () => {
     const language = isCustom ? customLanguage : selectedLanguage;
 
     try {
-      const response = await fetch('http://localhost:5000/api/interview/create-room', {
+      const response = await fetch('https://auriter-back.onrender.com/api/interview/create-room', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

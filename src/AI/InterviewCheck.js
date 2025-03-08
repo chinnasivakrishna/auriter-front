@@ -12,7 +12,7 @@ const InterviewCheck = ({ onStartInterview }) => {
   useEffect(() => {
     const fetchInterviewDetails = async () => {
       try {
-        const response = await axios.get(`http://localhost:5000/api/interview/details/${roomId}`);
+        const response = await axios.get(`https://auriter-back.onrender.com/api/interview/details/${roomId}`);
         const { date, time } = response.data;
 
         const interviewDateTime = new Date(`${date}T${time}`);

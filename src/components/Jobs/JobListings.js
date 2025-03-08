@@ -17,7 +17,7 @@ const JobListings = () => {
 
   const fetchJobs = async () => {
     try {
-      const response = await fetch('http://localhost:5000/api/jobs', {
+      const response = await fetch('https://auriter-back.onrender.com/api/jobs', {
         headers: {
           'Authorization': `Bearer ${Cookies.get('token')}`
         }
