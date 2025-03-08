@@ -80,27 +80,32 @@ const App = () => {
       <HMSRoomProvider>
         <div>
           <Routes>
+            {/* Make InterviewRoom accessible without authentication */}
             <Route path="/interview/:roomId" element={<InterviewRoom />} />
+            
+            {isAuthenticated ? (
+              <>
+                {/* Main layout with sidebar */}
+                <Route path="/*" element={<SidebarLayout onLogout={handleLogout} userRole={userRole} />} />
+                
+                {/* Redirect to dashboard if authenticated */}
+                <Route path="/auth" element={<Navigate to="/dashboard" replace />} />
+              </>
+            ) : (
+              <>
+                <Route path="/auth" element={<AuthPage onAuthSuccess={handleAuthSuccess} />} />
+                
+                {/* Redirect to auth if not authenticated - but exclude interview route */}
+                <Route path="*" element={
+                  ({ location }) => {
+                    return location.pathname.startsWith('/interview') 
+                      ? null 
+                      : <Navigate to="/auth" replace />;
+                  }
+                } />
+              </>
+            )}
           </Routes>
-          {isAuthenticated ? (
-            <Routes>
-              {/* Main layout with sidebar */}
-              <Route path="/*" element={<SidebarLayout onLogout={handleLogout} userRole={userRole} />} />
-              
-              {/* Interview Room route */}
-              <Route path="/interview/:roomId" element={<InterviewRoom />} />
-
-              {/* Redirect to dashboard if authenticated */}
-              <Route path="/auth" element={<Navigate to="/dashboard" replace />} />
-            </Routes>
-          ) : (
-            <Routes>
-              <Route path="/auth" element={<AuthPage onAuthSuccess={handleAuthSuccess} />} />
-              
-              {/* Redirect to auth if not authenticated */}
-              <Route path="*" element={<Navigate to="/auth" replace />} />
-            </Routes>
-          )}
         </div>
       </HMSRoomProvider>
     </Router>
