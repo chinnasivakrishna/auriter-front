@@ -1,0 +1,12 @@
+.peer-container video{
+    width: 488px;
+    height: 275px;
+    margin:10px 0px;
+    background-color: blue;
+    background-image: url('/src/components/user-slash.png');
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-size: 250px;
+    background-position: 120px;
+}
+

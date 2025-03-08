@@ -1,0 +1,86 @@
+/* src/components/ChatBox.css */
+.chat-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 500px; /* Fixed height for the container */
+    width: 350px; /* Fixed width for the container */
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 10px 15px;
+    background-color: white;
+    overflow: hidden; /* Prevents overflow outside the container */
+}
+
+.chat-window {
+    flex-grow: 1;
+    overflow-y: auto;
+    padding: 10px;
+    margin-bottom: 10px;
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100% - 60px); /* Adjust based on the height of other elements */
+}
+
+.chat-bubble {
+    max-width: 60%;
+    padding: 10px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+}
+
+.user-bubble {
+    background-color: #007bff;
+    color: white;
+    align-self: flex-end;
+    border-top-right-radius: 0;
+}
+
+.ai-bubble {
+    background-color: #e5e5ea;
+    color: black;
+    align-self: flex-start;
+    border-top-left-radius: 0;
+}
+
+.input-container {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center; /* Center align items vertically */
+    padding: 5px 0; /* Optional padding */
+}
+
+.chat-input {
+    flex-grow: 1;
+    padding: 10px;
+    border: 1px solid black;
+    border-radius: 5px;
+    height: 30px; /* Increased height for better usability */
+}
+
+.send-btn {
+    height: 50px; /* Matching height with chat-input */
+    padding: 10px 30px; /* Adjust padding */
+    background-color: #007bff;
+    color: white;
+    border: 1px solid #007bff;
+    border-radius: 5px;
+    cursor: pointer; /* Pointer cursor for better UX */
+}
+
+.send-btn:hover {
+    background-color: #0056b3;
+}
+.loading{
+    font-style: italic;
+    display: flex;
+    justify-content: left;
+    background-color: #e5e5ea;
+    color: black;
+    align-self: flex-start;
+    border-top-left-radius: 0;
+    padding: 10px 65px;
+    border-radius: 0px 10px 10px  10px;
+}

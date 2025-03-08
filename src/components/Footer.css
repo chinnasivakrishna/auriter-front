@@ -1,0 +1,38 @@
+.btn-control{
+    height: 40px;
+    width: 90px;
+    border-radius: 5px;
+    border: none;
+    background-color: blue;
+    color: white;
+}
+.btn-control:hover{
+    cursor: pointer;
+    background-color: rgb(51, 51, 241);
+}
+.btn-control {
+    width: 50px;
+    border: none;
+    padding: 10px ;
+    border-radius: 10%;
+    cursor: pointer;
+    font-size: 20px;
+    color: white; /* Color of the icon */
+    transition: background-color 0.3s ease; /* Smooth transition */
+}
+
+.btn-control.audio-on {
+    background-color: blue; /* Background when audio is on */
+}
+
+.btn-control.audio-off {
+    background-color: red; /* Background when audio is off */
+}
+
+.btn-control.video-on {
+    background-color: blue; /* Background when video is on */
+}
+
+.btn-control.video-off {
+    background-color: red; /* Background when video is off */
+}
