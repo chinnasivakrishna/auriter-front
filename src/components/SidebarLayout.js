@@ -23,37 +23,21 @@ import MyListingsContent from './Listings/MyListingsContent';
 import CandidatesContent from './Candidates/CandidatesContent';
 import MessagesContent from './Messages/MessagesContent';
 import JobsAppliedContent from './Jobs/JobsAppliedContent';
-import Cookies from "js-cookie"
+import Cookies from "js-cookie";
 
-const SidebarLayout = ({ onLogout }) => {
+const SidebarLayout = ({ onLogout, userRole }) => {
   const [isExpanded, setIsExpanded] = useState(true);
   const [currentPath, setCurrentPath] = useState('/dashboard');
-  const [userRole, setUserRole] = useState(null);
   const [profileComplete, setProfileComplete] = useState(false);
   const [showProfileSetup, setShowProfileSetup] = useState(false);
 
   useEffect(() => {
-    checkUserRole();
     checkProfileStatus();
   }, []);
 
-  const checkUserRole = async () => {
-    try {
-      const response = await fetch('https://auriter-back.onrender.com/api/profile/role', {
-        headers: {
-          'Authorization': `Bearer ${Cookies.get('token')}`
-        }
-      });
-      const data = await response.json();
-      setUserRole(data.role);
-    } catch (error) {
-      console.error('Error checking user role:', error);
-    }
-  };
-
   const checkProfileStatus = async () => {
     try {
-      const response = await fetch('https://auriter-back.onrender.com/api/profile/status', {
+      const response = await fetch('https://auriter-back.onrender.comapi/profile/status', {
         headers: {
           'Authorization': `Bearer ${Cookies.get('token')}`
         }
@@ -85,8 +69,8 @@ const SidebarLayout = ({ onLogout }) => {
     setCurrentPath('/dashboard');
   };
 
-  const handleLogout = () => {
-    Cookies.remove('token');
+  const handleLogoutClick = () => {
+    // Let the parent component handle everything
     onLogout();
   };
 
@@ -192,7 +176,7 @@ const SidebarLayout = ({ onLogout }) => {
         {/* Logout button */}
         <div className="absolute bottom-0 w-full border-t p-4">
           <div 
-            onClick={handleLogout}
+            onClick={handleLogoutClick}
             className="flex items-center justify-center cursor-pointer hover:bg-gray-50 transition-colors duration-200 p-2 rounded-full"
           >
             <LogOut size={20} />

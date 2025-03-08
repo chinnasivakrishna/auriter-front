@@ -80,8 +80,8 @@ const VoiceInteraction = () => {
   };
 
   const connectWebSockets = async () => {
-    transcriptWsRef.current = new WebSocket('ws://localhost:5000/ws/transcribe');
-    speechWsRef.current = new WebSocket('ws://localhost:5000/ws/speech');
+    transcriptWsRef.current = new WebSocket('ws://auriter-back.onrender.com/ws/transcribe');
+    speechWsRef.current = new WebSocket('ws://auriter-back.onrender.com/ws/speech');
     
     transcriptWsRef.current.onmessage = async (event) => {
       const data = JSON.parse(event.data);
