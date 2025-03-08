@@ -257,7 +257,7 @@ useEffect(() => {
     console.log('Setting up WebSocket connections...');
     
     // WebSocket for transcription
-    webSocketRef.current = new WebSocket(`ws://auriter-back.onrender.com/ws/transcribe?language=en`);
+    webSocketRef.current = new WebSocket(`wss://auriter-back.onrender.com/ws/transcribe?language=en`);
     
     webSocketRef.current.onopen = () => {
       console.log('Transcription WebSocket connected');
@@ -281,7 +281,7 @@ useEffect(() => {
     };
   
     // WebSocket for speech synthesis
-    speechWebSocketRef.current = new WebSocket('ws://auriter-back.onrender.com/ws/speech');
+    speechWebSocketRef.current = new WebSocket('wss://auriter-back.onrender.com/ws/speech');
     
     speechWebSocketRef.current.onopen = () => {
       console.log('Speech WebSocket connected');
