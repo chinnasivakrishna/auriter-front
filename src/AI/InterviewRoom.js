@@ -339,39 +339,55 @@ const startInterview = async () => {
   };
 
   const speakQuestion = (question) => {
-    if (!speechWebSocketRef.current || speechWebSocketRef.current.readyState !== WebSocket.OPEN) {
-      console.error('Speech WebSocket not ready');
+    if (!speechWebSocketRef.current) {
+      console.error('Speech WebSocket not initialized');
       return;
     }
   
+    // Check if WebSocket is open
+    if (speechWebSocketRef.current.readyState !== WebSocket.OPEN) {
+      console.log('WebSocket not ready, waiting for connection...');
+      
+      // Wait for the WebSocket to open
+      speechWebSocketRef.current.onopen = () => {
+        console.log('Speech WebSocket connected, sending question...');
+        sendQuestionToWebSocket(question);
+      };
+    } else {
+      // WebSocket is already open, send the question immediately
+      sendQuestionToWebSocket(question);
+    }
+  };
+  
+  const sendQuestionToWebSocket = (question) => {
     console.log('Sending question to LMNT for synthesis:', question);
     setIsSpeaking(true);
     setAiSpeaking(true);
-    
+  
     // Reset the audio player and clear previous chunks
     if (audioPlayerRef.current) {
       audioPlayerRef.current.pause();
       audioPlayerRef.current.src = '';
     }
     const audioChunks = [];
-    
+  
     speechWebSocketRef.current.send(JSON.stringify({
       text: question,
       voice: 'lily',
       language: 'en',
       speed: 1.0
     }));
-    
+  
     speechWebSocketRef.current.onmessage = (event) => {
       if (typeof event.data === 'string') {
         const data = JSON.parse(event.data);
         if (data.type === 'end') {
           console.log('Speech synthesis complete');
-          
+  
           // Concatenate all audio chunks into a single Blob
           const combinedBlob = new Blob(audioChunks, { type: 'audio/mp3' });
           const url = URL.createObjectURL(combinedBlob);
-          
+  
           // Play the combined audio
           audioPlayerRef.current.src = url;
           audioPlayerRef.current.play().then(() => {
@@ -379,10 +395,10 @@ const startInterview = async () => {
           }).catch((error) => {
             console.error('Error playing audio:', error);
           });
-          
+  
           setIsSpeaking(false);
           setAiSpeaking(false);
-          
+  
           setTimeout(() => {
             if (!isRecording) {
               startRecording();
