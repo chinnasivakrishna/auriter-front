@@ -25,7 +25,7 @@ const App = () => {
 
   const validateToken = async (token) => {
     try {
-      const response = await fetch('https://auriter-back.onrender.com/api/auth/validate', {
+      const response = await fetch('http://localhost:5000/api/auth/validate', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
@@ -80,29 +80,24 @@ const App = () => {
       <HMSRoomProvider>
         <div>
           <Routes>
-            {/* Make InterviewRoom accessible without authentication */}
+            {/* Public Interview Room route - accessible without authentication */}
             <Route path="/interview/:roomId" element={<InterviewRoom />} />
             
             {isAuthenticated ? (
               <>
-                {/* Main layout with sidebar */}
+                {/* Main layout with sidebar for authenticated users */}
                 <Route path="/*" element={<SidebarLayout onLogout={handleLogout} userRole={userRole} />} />
                 
-                {/* Redirect to dashboard if authenticated */}
+                {/* Redirect to dashboard if authenticated user tries to access auth page */}
                 <Route path="/auth" element={<Navigate to="/dashboard" replace />} />
               </>
             ) : (
               <>
+                {/* Auth page for unauthenticated users */}
                 <Route path="/auth" element={<AuthPage onAuthSuccess={handleAuthSuccess} />} />
                 
-                {/* Redirect to auth if not authenticated - but exclude interview route */}
-                <Route path="*" element={
-                  ({ location }) => {
-                    return location.pathname.startsWith('/interview') 
-                      ? null 
-                      : <Navigate to="/auth" replace />;
-                  }
-                } />
+                {/* Redirect to auth if unauthenticated user tries to access protected routes */}
+                <Route path="*" element={<Navigate to="/auth" replace />} />
               </>
             )}
           </Routes>

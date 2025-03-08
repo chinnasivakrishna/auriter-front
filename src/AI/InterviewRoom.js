@@ -442,27 +442,31 @@ const startInterview = async () => {
 
   const handleNextQuestion = () => {
     const nextIndex = currentQuestionIndex + 1;
-    
+  
     if (isRecording) {
       stopRecording();
     }
-    
+  
     const updatedResponses = [...responses];
     updatedResponses[currentQuestionIndex] = userResponse;
     setResponses(updatedResponses);
-    
+  
     if (nextIndex < questions.length) {
       setCurrentQuestionIndex(nextIndex);
       setUserResponse('');
       setTranscript('');
-      
+  
       // Re-establish WebSocket connections for transcription and speech
       console.log('Re-establishing WebSocket connections for next question...');
       setupWebSockets();
-      
+  
       // Add a delay before speaking the next question
       setTimeout(() => {
-        speakQuestion(questions[nextIndex]);
+        if (speechWebSocketRef.current && speechWebSocketRef.current.readyState === WebSocket.OPEN) {
+          speakQuestion(questions[nextIndex]);
+        } else {
+          console.error('Speech WebSocket not ready');
+        }
       }, 1000); // 1-second delay to ensure WebSocket is ready
     } else {
       submitAllResponses(updatedResponses);
