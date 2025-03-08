@@ -79,6 +79,7 @@ const App = () => {
     <Router>
       <HMSRoomProvider>
         <div>
+        <Route path="/interview/:roomId" element={<InterviewRoom />} />
           {isAuthenticated ? (
             <Routes>
               {/* Main layout with sidebar */}
