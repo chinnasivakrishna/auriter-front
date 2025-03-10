@@ -25,7 +25,7 @@ const App = () => {
 
   const validateToken = async (token) => {
     try {
-      const response = await fetch('http://localhost:5000/api/auth/validate', {
+      const response = await fetch('http://localhost:https://auriter-back.onrender.com/api/auth/validate', {
         headers: {
           'Authorization': `Bearer ${token}`
         }
