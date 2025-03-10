@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
 import { HMSRoomProvider } from '@100mslive/react-sdk';
 import SidebarLayout from './components/SidebarLayout';
-import AuthPage from './components/Auth/AuthPage';
+import AuthFlow from './components/Auth/AuthFlow';
 import InterviewRoom from './AI/InterviewRoom';
 import Cookies from 'js-cookie';
 
@@ -63,7 +63,7 @@ const App = () => {
     setIsAuthenticated(false);
     setUserRole(null);
     
-    // Force reload the page to ensure clean state
+    // Navigate to auth page
     window.location.href = '/auth';
   };
 
@@ -83,6 +83,13 @@ const App = () => {
             {/* Public Interview Room route - accessible without authentication */}
             <Route path="/interview/:roomId" element={<InterviewRoom />} />
             
+            {/* Auth callback route for Google OAuth */}
+            <Route path="/auth/callback" element={
+              isAuthenticated 
+                ? <Navigate to="/" replace /> 
+                : <AuthFlow onAuthSuccess={handleAuthSuccess} />
+            } />
+            
             {isAuthenticated ? (
               <>
                 {/* Main layout with sidebar for authenticated users */}
@@ -94,7 +101,7 @@ const App = () => {
             ) : (
               <>
                 {/* Auth page for unauthenticated users */}
-                <Route path="/auth" element={<AuthPage onAuthSuccess={handleAuthSuccess} />} />
+                <Route path="/auth" element={<AuthFlow onAuthSuccess={handleAuthSuccess} />} />
                 
                 {/* Redirect to auth if unauthenticated user tries to access protected routes */}
                 <Route path="*" element={<Navigate to="/auth" replace />} />
