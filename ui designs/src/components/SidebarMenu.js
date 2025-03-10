@@ -3,7 +3,7 @@ import { Home, Users, Phone, Video, BookOpen, MessageSquare, FileText } from 'lu
 
 const SidebarMenu = ({ isExpanded, currentPath, handleNavigate }) => {
   const menuItems = [
-    { icon: Home, label: 'Dashboard', path: '/dashboard' },
+    { icon: Home, label: 'Dashboard', path: '/' },
     { icon: Users, label: 'Jobs', path: '/jobs' },
     { icon: FileText, label: 'Resume Analyzer', path: '/resume-analyzer' },
     { icon: Phone, label: 'AI Telephonic', path: '/ai-telephonic' },

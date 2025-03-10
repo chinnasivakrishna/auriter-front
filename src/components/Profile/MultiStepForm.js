@@ -79,7 +79,7 @@ const MultiStepForm = ({ onBack }) => {
 
       const data = await response.json();
       if (data.success) {
-        window.location.href = '/dashboard';
+        window.location.href = '/';
       }
     } catch (error) {
       console.error('Profile creation error:', error);

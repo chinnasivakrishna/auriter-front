@@ -26,7 +26,7 @@ const LinkedInForm = ({ onBack }) => {
       const data = await response.json();
       if (data.success) {
         // Handle successful profile import
-        window.location.href = '/dashboard';
+        window.location.href = '/';
       }
     } catch (error) {
       console.error('LinkedIn import error:', error);

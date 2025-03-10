@@ -4,7 +4,7 @@ import { Home, Briefcase, Users, FileText, MessageSquare, Settings } from 'lucid
 
 const RecruiterMenu = ({ isExpanded, currentPath, handleNavigate }) => {
   const menuItems = [
-    { icon: Home, label: 'Dashboard', path: '/dashboard' },
+    { icon: Home, label: 'Dashboard', path: '/' },
     { icon: Briefcase, label: 'Post Jobs', path: '/post-jobs' },
     { icon: FileText, label: 'My Job Listings', path: '/my-listings' },
     { icon: Users, label: 'Candidates', path: '/candidates' },

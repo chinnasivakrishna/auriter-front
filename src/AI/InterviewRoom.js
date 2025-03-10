@@ -1055,7 +1055,7 @@ const InterviewRoom = () => {
                     Start Interview
                   </button>
                   <button
-                    onClick={() => navigate('/dashboard')}
+                    onClick={() => navigate('/')}
                     className="flex-1 bg-gray-700 hover:bg-gray-600 py-3 px-6 rounded-lg text-white font-medium transition-all transform hover:scale-105 flex items-center justify-center"
                   >
                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">

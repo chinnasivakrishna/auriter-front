@@ -27,7 +27,7 @@ import Cookies from "js-cookie";
 
 const SidebarLayout = ({ onLogout, userRole }) => {
   const [isExpanded, setIsExpanded] = useState(true);
-  const [currentPath, setCurrentPath] = useState('/dashboard');
+  const [currentPath, setCurrentPath] = useState('/');
   const [profileComplete, setProfileComplete] = useState(false);
   const [showProfileSetup, setShowProfileSetup] = useState(false);
 
@@ -61,12 +61,12 @@ const SidebarLayout = ({ onLogout, userRole }) => {
   const handleProfileSetupComplete = () => {
     setProfileComplete(true);
     setShowProfileSetup(false);
-    setCurrentPath('/dashboard');
+    setCurrentPath('/');
   };
 
   const handleSkip = () => {
     setShowProfileSetup(false);
-    setCurrentPath('/dashboard');
+    setCurrentPath('/');
   };
 
   const handleLogoutClick = () => {
@@ -97,7 +97,7 @@ const SidebarLayout = ({ onLogout, userRole }) => {
     switch (currentPath) {
       case '/auth':
         return <AuthPage />;
-      case '/dashboard':
+      case '/':
         return <DashboardContent />;
       case '/resume-analyzer':
         return <ResumeAnalyzerPage />;
@@ -192,7 +192,7 @@ const SidebarLayout = ({ onLogout, userRole }) => {
         {/* Navbar */}
         <div className="bg-white shadow-md py-4 px-6 flex items-center justify-between">
           <div className="flex items-center">
-            {currentPath !== '/dashboard' && (
+            {currentPath !== '/' && (
               <div className="mr-4 cursor-pointer hover:bg-gray-50 transition-colors duration-200 p-2 rounded-full">
                 <span className="text-gray-600 font-semibold">
                   {currentPath.slice(1).split('-').map(word => 

@@ -74,7 +74,7 @@ const InterviewResults = ({ analysis, questions, responses }) => {
         </div>
         <div className="mt-8 text-center">
           <button 
-            onClick={() => navigate('/dashboard')} 
+            onClick={() => navigate('/')} 
             className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700"
           >
             Return to Dashboard

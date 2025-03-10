@@ -18,7 +18,7 @@ import ResumeAnalyzerPage from './ResumeAnalyzerPage';
 
 const SidebarLayout = () => {
   const [isExpanded, setIsExpanded] = useState(true);
-  const [currentPath, setCurrentPath] = useState('/dashboard');
+  const [currentPath, setCurrentPath] = useState('/');
 
   const handleNavigate = (path) => {
     setCurrentPath(path);
@@ -80,7 +80,7 @@ const SidebarLayout = () => {
 {/* Navbar */}
 <div className="bg-white shadow-md py-4 px-6 flex items-center justify-between">
   <div className="flex items-center">
-    {currentPath !== '/dashboard' && currentPath !== '/jobs' && (
+    {currentPath !== '/' && currentPath !== '/jobs' && (
       <div className="mr-4 cursor-pointer hover:bg-gray-50 transition-colors duration-200 p-2 rounded-full">
         <span className="text-gray-600 font-semibold">
           {currentPath.slice(1).split('-').map(word => 
@@ -126,7 +126,7 @@ const SidebarLayout = () => {
 
 {/* Update the content section to include the new VoiceInteraction component */}
 <div className="flex-1 overflow-auto p-8">
-  {currentPath === '/dashboard' && <DashboardContent />}
+  {currentPath === '/' && <DashboardContent />}
   {currentPath === '/resume-analyzer' && <ResumeAnalyzerPage />}
   {currentPath === '/chat' && <ChatContent />}
   {currentPath === '/jobs' && <JobsContent />}

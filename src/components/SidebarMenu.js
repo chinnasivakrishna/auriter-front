@@ -3,7 +3,7 @@ import { Home, Users, Phone, Video, BookOpen, MessageSquare, FileText,UserPlus }
 
 const SidebarMenu = ({ isExpanded, currentPath, handleNavigate }) => {
   const menuItems = [
-    { icon: Home, label: 'Dashboard', path: '/dashboard' },
+    { icon: Home, label: 'Dashboard', path: '/' },
     { icon: Users, label: 'Jobs', path: '/jobs' },
     { icon: FileText, label: 'Jobs Applied', path: '/jobs-applied' },
     { icon: FileText, label: 'Resume Analyzer', path: '/resume-analyzer' },

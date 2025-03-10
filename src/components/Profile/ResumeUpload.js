@@ -68,7 +68,7 @@ const ResumeUpload = ({ onBack }) => {
       if (data.success) {
         setProgress(100);
         setTimeout(() => {
-          window.location.href = '/dashboard';
+          window.location.href = '/';
         }, 1000);
       } else {
         throw new Error(data.message || 'Upload failed');
