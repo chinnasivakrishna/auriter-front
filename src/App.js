@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-d
 import { HMSRoomProvider } from '@100mslive/react-sdk';
 import SidebarLayout from './components/SidebarLayout';
 import AuthFlow from './components/Auth/AuthFlow';
+import RoleSelectionPage from './components/Auth/RoleSelectionPage';
 import InterviewRoom from './AI/InterviewRoom';
 import Cookies from 'js-cookie';
 
@@ -95,6 +96,11 @@ const App = () => {
                 {/* Main layout with sidebar for authenticated users */}
                 <Route path="/*" element={<SidebarLayout onLogout={handleLogout} userRole={userRole} />} />
                 
+                {/* Role selection as a separate route but still protected */}
+                <Route path="/role-selection" element={
+                  <RoleSelectionPage onAuthSuccess={handleAuthSuccess} />
+                } />
+                
                 {/* Redirect to dashboard if authenticated user tries to access auth page */}
                 <Route path="/auth" element={<Navigate to="/" replace />} />
               </>
@@ -102,6 +108,9 @@ const App = () => {
               <>
                 {/* Auth page for unauthenticated users */}
                 <Route path="/auth" element={<AuthFlow onAuthSuccess={handleAuthSuccess} />} />
+                
+                {/* Role selection accessible for users with token but no role yet */}
+                <Route path="/role-selection" element={<RoleSelectionPage onAuthSuccess={handleAuthSuccess} />} />
                 
                 {/* Redirect to auth if unauthenticated user tries to access protected routes */}
                 <Route path="*" element={<Navigate to="/auth" replace />} />

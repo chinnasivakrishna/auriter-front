@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Mail, Lock, User, ArrowRight, Building, Globe } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
 import Cookies from 'js-cookie';
-import RoleSelection from './RoleSelection';
+import RoleSelection from './RoleSelectionPage';
 
 const AuthPage = ({ onAuthSuccess }) => {
   const [isLogin, setIsLogin] = useState(true);

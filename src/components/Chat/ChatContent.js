@@ -68,7 +68,7 @@ const ChatContent = () => {
       setIsPlaying(false);
 
       transcriptWsRef.current = new WebSocket(
-        'ws://auriter-back.onrender.com/ws/transcribe?language=en&model=nova-2'
+        'wss://auriter-back.onrender.com/ws/transcribe?language=en&model=nova-2'
       );
 
       await new Promise((resolve, reject) => {
@@ -123,7 +123,7 @@ const ChatContent = () => {
       
       await audioStreamRef.current.resume();
 
-      const ws = new WebSocket('ws://auriter-back.onrender.com/ws/speech');
+      const ws = new WebSocket('wss://auriter-back.onrender.com/ws/speech');
       
       ws.onopen = () => {
         const request = {
