@@ -2,7 +2,42 @@ import React, { useState, useEffect } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { Building, Globe, User, ArrowRight } from 'lucide-react';
 import Cookies from 'js-cookie';
-import RoleSelection from './RoleSelectionPage';
+
+// Role Selection component
+const RoleSelection = ({ onRoleSelect }) => {
+  return (
+    <div className="w-full max-w-md">
+      <div className="bg-white rounded-lg shadow-xl p-8">
+        <h2 className="text-2xl font-bold text-center text-gray-800 mb-8">
+          Choose Your Role
+        </h2>
+        <div className="space-y-4">
+          <button
+            onClick={() => onRoleSelect('jobSeeker')}
+            className="w-full p-6 border border-gray-300 rounded-lg hover:border-purple-600 hover:bg-purple-50 transition-colors duration-200 flex flex-col items-center justify-center"
+          >
+            <User className="mb-3 text-purple-600" size={40} />
+            <span className="text-lg font-medium text-gray-800">I'm a Job Seeker</span>
+            <p className="text-sm text-gray-500 mt-2 text-center">
+              Looking for new opportunities and want to showcase your skills
+            </p>
+          </button>
+          
+          <button
+            onClick={() => onRoleSelect('recruiter')}
+            className="w-full p-6 border border-gray-300 rounded-lg hover:border-purple-600 hover:bg-purple-50 transition-colors duration-200 flex flex-col items-center justify-center"
+          >
+            <Building className="mb-3 text-purple-600" size={40} />
+            <span className="text-lg font-medium text-gray-800">I'm a Recruiter</span>
+            <p className="text-sm text-gray-500 mt-2 text-center">
+              Looking to hire talented individuals for your company
+            </p>
+          </button>
+        </div>
+      </div>
+    </div>
+  );
+};
 
 const RoleSelectionPage = ({ onAuthSuccess }) => {
   const location = useLocation();
@@ -18,11 +53,17 @@ const RoleSelectionPage = ({ onAuthSuccess }) => {
 
   useEffect(() => {
     // Get token from location state or from cookies
+    const params = new URLSearchParams(location.search);
     const stateToken = location.state?.token;
+    const queryToken = params.get('token');
     const cookieToken = Cookies.get('token');
     
     if (stateToken) {
       setToken(stateToken);
+    } else if (queryToken) {
+      setToken(queryToken);
+      // Also set the token in cookies for future use
+      Cookies.set('token', queryToken, { expires: 7 });
     } else if (cookieToken) {
       setToken(cookieToken);
     } else {
@@ -33,6 +74,8 @@ const RoleSelectionPage = ({ onAuthSuccess }) => {
 
   const handleRoleSelect = async (role) => {
     try {
+      setError('');
+      
       if (role === 'recruiter') {
         setCurrentStep('companyInfo');
         return;
@@ -53,7 +96,9 @@ const RoleSelectionPage = ({ onAuthSuccess }) => {
         throw new Error(data.message);
       }
 
+      // Successfully set role
       onAuthSuccess(role);
+      navigate('/');
     } catch (error) {
       setError(error.message || 'An error occurred');
     }
@@ -61,6 +106,8 @@ const RoleSelectionPage = ({ onAuthSuccess }) => {
 
   const handleCompanySubmit = async (e) => {
     e.preventDefault();
+    setError('');
+    
     try {
       const response = await fetch('https://auriter-back.onrender.com/api/auth/set-role', {
         method: 'POST',
@@ -80,7 +127,9 @@ const RoleSelectionPage = ({ onAuthSuccess }) => {
         throw new Error(data.message);
       }
 
+      // Successfully set role as recruiter with company info
       onAuthSuccess('recruiter');
+      navigate('/');
     } catch (error) {
       setError(error.message || 'An error occurred');
     }
@@ -188,6 +237,11 @@ const RoleSelectionPage = ({ onAuthSuccess }) => {
 
   return (
     <div className="min-h-screen bg-gray-100 flex flex-col justify-center items-center p-4">
+      {error && (
+        <div className="mb-4 p-3 bg-red-100 text-red-600 rounded max-w-md">
+          {error}
+        </div>
+      )}
       {renderCurrentStep()}
     </div>
   );

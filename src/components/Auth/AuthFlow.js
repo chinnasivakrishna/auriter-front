@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Mail, Lock, User, ArrowRight } from 'lucide-react';
 import { FcGoogle } from 'react-icons/fc';
 import Cookies from 'js-cookie';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 
 // Separate Authentication component (Registration/Login)
 const AuthFlow = ({ onAuthSuccess }) => {
@@ -16,12 +16,14 @@ const AuthFlow = ({ onAuthSuccess }) => {
   const [isLogin, setIsLogin] = useState(true);
   const [error, setError] = useState('');
   const navigate = useNavigate();
+  const location = useLocation();
   
   // Check URL params for Google callback
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const token = params.get('token');
     const role = params.get('role');
+    const requiresRole = params.get('requiresRole');
     
     if (token) {
       // Google auth callback
@@ -32,15 +34,16 @@ const AuthFlow = ({ onAuthSuccess }) => {
         isGoogle: true
       }));
       
-      if (role && role !== 'undefined') {
+      if (role && role !== 'undefined' && role !== 'pendingSelection') {
         // User already has a role, complete auth flow
         onAuthSuccess(role);
-      } else {
+        navigate('/');
+      } else if (requiresRole === 'true' || role === 'pendingSelection') {
         // User needs to select a role, navigate to role selection
         navigate('/role-selection', { state: { token } });
       }
     }
-  }, [onAuthSuccess, navigate]);
+  }, [onAuthSuccess, navigate, location]);
 
   const handleRegisterOrLogin = async (e) => {
     e.preventDefault();
@@ -70,11 +73,12 @@ const AuthFlow = ({ onAuthSuccess }) => {
       if (data.token) {
         Cookies.set('token', data.token, { expires: 7 });
         
-        if (!isLogin && data.requiresRole) {
+        if (!isLogin || data.requiresRole) {
           // Navigate to role selection page
           navigate('/role-selection', { state: { token: data.token } });
         } else {
           onAuthSuccess(data.role);
+          navigate('/');
         }
       }
     } catch (error) {
