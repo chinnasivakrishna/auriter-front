@@ -89,7 +89,7 @@ const App = () => {
                 <Route path="/*" element={<SidebarLayout onLogout={handleLogout} userRole={userRole} />} />
                 
                 {/* Redirect to dashboard if authenticated user tries to access auth page */}
-                <Route path="/auth" element={<Navigate to="/dashboard" replace />} />
+                <Route path="/auth" element={<Navigate to="/" replace />} />
               </>
             ) : (
               <>
