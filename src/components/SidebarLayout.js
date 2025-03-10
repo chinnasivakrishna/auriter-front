@@ -37,7 +37,7 @@ const SidebarLayout = ({ onLogout, userRole }) => {
 
   const checkProfileStatus = async () => {
     try {
-      const response = await fetch('https://auriter-back.onrender.comapi/profile/status', {
+      const response = await fetch('https://auriter-back.onrender.com/api/profile/status', {
         headers: {
           'Authorization': `Bearer ${Cookies.get('token')}`
         }
