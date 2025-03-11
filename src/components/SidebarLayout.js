@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { ChevronLeft, ChevronRight, LogOut, Bell, User, HelpCircle, Settings, Mic } from 'lucide-react';
+import { useParams, useLocation } from 'react-router-dom';
 import Airuter from '../assets/airuter_logo.png';
 import SidebarMenu from './SidebarMenu';
 import RecruiterMenu from './Recruiter/RecruiterMenu';
@@ -23,6 +24,9 @@ import MyListingsContent from './Listings/MyListingsContent';
 import CandidatesContent from './Candidates/CandidatesContent';
 import MessagesContent from './Messages/MessagesContent';
 import JobsAppliedContent from './Jobs/JobsAppliedContent';
+import EditJobContent from './Jobs/EditJobContent';
+import ViewJobContent from './Jobs/ViewJobContent';
+import JobApplicationsContent from './Applications/JobApplicationsContent';
 import Cookies from "js-cookie";
 
 const SidebarLayout = ({ onLogout, userRole }) => {
@@ -30,6 +34,13 @@ const SidebarLayout = ({ onLogout, userRole }) => {
   const [currentPath, setCurrentPath] = useState('/');
   const [profileComplete, setProfileComplete] = useState(false);
   const [showProfileSetup, setShowProfileSetup] = useState(false);
+  const params = useParams();
+  const location = useLocation();
+
+  useEffect(() => {
+    // Set currentPath based on current location
+    setCurrentPath(location.pathname);
+  }, [location]);
 
   useEffect(() => {
     checkProfileStatus();
@@ -79,6 +90,22 @@ const SidebarLayout = ({ onLogout, userRole }) => {
       return <ProfileSetup onComplete={handleProfileSetupComplete} onSkip={handleSkip} />;
     }
 
+    // Handle dynamic routes
+    if (currentPath.startsWith('/edit-job/')) {
+      const jobId = currentPath.split('/')[2];
+      return <EditJobContent jobId={jobId} />;
+    }
+
+    if (currentPath.startsWith('/jobs/') && currentPath !== '/jobs') {
+      const jobId = currentPath.split('/')[2];
+      return <ViewJobContent jobId={jobId} />;
+    }
+
+    if (currentPath.startsWith('/applications/')) {
+      const jobId = currentPath.split('/')[2];
+      return <JobApplicationsContent jobId={jobId} />;
+    }
+
     // Recruiter-specific routes
     if (userRole === 'recruiter') {
       switch (currentPath) {
@@ -120,7 +147,7 @@ const SidebarLayout = ({ onLogout, userRole }) => {
       case '/settings':
         return <SettingsContent />;
       case '/jobs-applied':
-          return <JobsAppliedContent />;
+        return <JobsAppliedContent />;
       case '/help':
         return <HelpContent />;
       case '/voice-assistant':
@@ -128,6 +155,27 @@ const SidebarLayout = ({ onLogout, userRole }) => {
       default:
         return <DashboardContent />;
     }
+  };
+
+  // Get page title from current path
+  const getPageTitle = () => {
+    if (currentPath === '/') return '';
+    
+    if (currentPath.startsWith('/edit-job/')) {
+      return 'Edit Job';
+    }
+    
+    if (currentPath.startsWith('/jobs/') && currentPath !== '/jobs') {
+      return 'View Job';
+    }
+    
+    if (currentPath.startsWith('/applications/')) {
+      return 'Job Applications';
+    }
+    
+    return currentPath.slice(1).split('-').map(word => 
+      word.charAt(0).toUpperCase() + word.slice(1)
+    ).join(' ');
   };
 
   return (
@@ -195,9 +243,7 @@ const SidebarLayout = ({ onLogout, userRole }) => {
             {currentPath !== '/' && (
               <div className="mr-4 cursor-pointer hover:bg-gray-50 transition-colors duration-200 p-2 rounded-full">
                 <span className="text-gray-600 font-semibold">
-                  {currentPath.slice(1).split('-').map(word => 
-                    word.charAt(0).toUpperCase() + word.slice(1)
-                  ).join(' ')}
+                  {getPageTitle()}
                 </span>
               </div>
             )}
