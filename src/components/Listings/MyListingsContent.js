@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Edit2, Trash2, Eye, Users, List, Calendar, Tag } from 'lucide-react';
+import { Edit2, Trash2, Eye, Users, List, Calendar, Tag, Plus } from 'lucide-react';
 import { useNavigate } from 'react-router-dom';
 import {
   AlertDialog,
@@ -153,6 +153,10 @@ const MyListingsContent = () => {
     navigate(`/applications/${jobId}`);
   };
 
+  const handlePostJob = () => {
+    navigate('/post-jobs');
+  };
+
   if (loading) {
     return (
       <div className="flex justify-center items-center h-64">
@@ -167,6 +171,13 @@ const MyListingsContent = () => {
         <CardHeader className="flex flex-row items-center justify-between pb-2">
           <CardTitle className="text-2xl font-bold text-gray-800">My Job Listings</CardTitle>
           <div className="flex items-center space-x-2">
+            <button 
+              onClick={handlePostJob} 
+              className="flex items-center px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700 transition-colors"
+            >
+              <Plus className="h-4 w-4 mr-2" />
+              Post a Job
+            </button>
             <button 
               onClick={() => setViewType('cards')} 
               className={`p-2.5 rounded-md ${viewType === 'cards' ? 'bg-purple-100 text-purple-700' : 'text-gray-500 hover:bg-gray-100'}`}
@@ -202,7 +213,7 @@ const MyListingsContent = () => {
               <h3 className="text-lg font-medium text-gray-700 mb-2">No job listings yet</h3>
               <p className="text-gray-500 mb-4">Post your first job to get started</p>
               <button 
-                onClick={() => navigate('/post-jobs')} 
+                onClick={handlePostJob} 
                 className="px-4 py-2 bg-purple-600 text-white rounded-md hover:bg-purple-700"
               >
                 Post a Job
