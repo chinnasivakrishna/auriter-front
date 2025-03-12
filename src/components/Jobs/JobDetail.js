@@ -18,7 +18,6 @@ const JobDetail = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const jobId = location.pathname.split('/').pop();
-
   useEffect(() => {
     const fetchJobDetail = async () => {
       try {
