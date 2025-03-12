@@ -36,10 +36,9 @@ const JobListings = () => {
     fetchJobs();
   }, []);
 
-  // In JobListings.js
-const handleJobClick = (jobId) => {
-  navigate(`/jobs/${jobId}`);  // Change from /detail/${jobId}
-};
+  const handleJobClick = (jobId) => {
+    navigate(`/detail/${jobId}`);
+  };
 
   const filteredJobs = jobs.filter(job => {
     const matchesSearch = 
