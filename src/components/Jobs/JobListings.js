@@ -37,7 +37,7 @@ const JobListings = () => {
   }, []);
 
   const handleJobClick = (jobId) => {
-    navigate(`/detail/${jobId}`);
+    navigate(`/jobs/detail/${jobId}`);
   };
 
   const filteredJobs = jobs.filter(job => {
