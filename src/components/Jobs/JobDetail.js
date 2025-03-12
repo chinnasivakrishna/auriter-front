@@ -115,7 +115,7 @@ const JobDetail = () => {
     <div className="min-h-screen bg-gray-50 py-8 px-4 sm:px-6 lg:px-8">
       <div className="max-w-5xl mx-auto">
         <button
-          onClick={() => navigate('/jobs')}
+          onClick={() => navigate('/my-jobs')}
           className="group flex items-center text-gray-600 hover:text-purple-600 mb-8 transition-colors duration-200"
         >
           <ArrowLeft size={20} className="mr-2 group-hover:-translate-x-1 transition-transform duration-200" />
