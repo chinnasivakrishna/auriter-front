@@ -27,6 +27,7 @@ import JobsAppliedContent from './Jobs/JobsAppliedContent';
 import EditJobContent from './Jobs/EditJobContent';
 import ViewJobContent from './Jobs/ViewJobContent';
 import JobApplicationsContent from './Applications/JobApplicationsContent';
+import JobDetail from './Jobs/JobDetail';
 import Cookies from "js-cookie";
 
 const SidebarLayout = ({ onLogout, userRole }) => {
@@ -97,7 +98,7 @@ const SidebarLayout = ({ onLogout, userRole }) => {
     }
     if (currentPath.startsWith('/detail/')) {
       return <JobDetail />;
-      
+
     }
     if (currentPath.startsWith('/jobs/detail/')) {
       return <JobsContent />;
