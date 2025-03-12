@@ -96,6 +96,10 @@ const SidebarLayout = ({ onLogout, userRole }) => {
       const jobId = currentPath.split('/')[2];
       return <EditJobContent jobId={jobId} />;
     }
+    if (currentPath.startsWith('/my-jobs/')) {
+      return <JobsContent />;
+
+    }
     if (currentPath.startsWith('/detail/')) {
       return <JobDetail />;
 
