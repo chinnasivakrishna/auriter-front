@@ -97,6 +97,7 @@ const SidebarLayout = ({ onLogout, userRole }) => {
     }
     if (currentPath.startsWith('/detail/')) {
       return <JobDetail />;
+      
     }
     if (currentPath.startsWith('/jobs/detail/')) {
       return <JobsContent />;
