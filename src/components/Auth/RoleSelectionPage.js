@@ -144,12 +144,6 @@ const RoleSelectionPage = ({ onAuthSuccess }) => {
             Company Details
           </h2>
 
-          {error && (
-            <div className="mb-4 p-3 bg-red-100 text-red-600 rounded">
-              {error}
-            </div>
-          )}
-
           <form onSubmit={handleCompanySubmit} className="space-y-6">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-2">
